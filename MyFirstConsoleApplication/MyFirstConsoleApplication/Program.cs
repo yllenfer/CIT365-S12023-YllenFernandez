@@ -4,6 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
+/*First application for CIT 365 WEEK01
+  Author: Yllen Fernandez
+  Instructor: Brother Smith
+  Comment were added after reading page 34 from WEEK02 material
+  They do not affect the output of WEEK01'S code*/
 
 
 namespace MyFirstConsoleApplication
@@ -11,7 +16,8 @@ namespace MyFirstConsoleApplication
     internal class Program
     {
         static void Main()
-        {
+        { 
+            //Main method call excecutes other methods within the app
             GetUserNameAndLocation();
             ChristmasCountdown();
             RunExample();
@@ -22,7 +28,7 @@ namespace MyFirstConsoleApplication
 
         private static void GetUserNameAndLocation()
         {
-            
+            //Method that creates a new Person and stores their location + name and displays them
             Console.WriteLine("What is your name?");
             var name = Console.ReadLine();
             Console.WriteLine($"Hi, {name}! Where are you from?");
@@ -42,6 +48,7 @@ namespace MyFirstConsoleApplication
 
         private static void ChristmasCountdown()
         {
+            //Method calculates current time and time until Christmas, it also stores and displays data from user
             var currentDate = DateTime.Now.ToString("d");
             Console.WriteLine($"\nToday's date is: {currentDate}");
             //Console.ReadLine();
@@ -58,6 +65,7 @@ namespace MyFirstConsoleApplication
 
         public static void RunExample()
         {
+            //Method prompts user to enter differnt values to be calculated and displayed as pieces of relevant info for a business
             double width;
             Console.Write("\nEnter a width: ");
             string widthString = Console.ReadLine();

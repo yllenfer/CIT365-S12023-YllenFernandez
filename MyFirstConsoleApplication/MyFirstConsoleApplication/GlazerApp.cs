@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace MyFirstConsoleApplication
 {
     static class GlazerApp
+        //Static class 
     {
 
       
