@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 using System.Globalization;
 /*First application for CIT 365 WEEK01
   Author: Yllen Fernandez
-  Instructor: Brother Smith
-  Comment were added after reading page 34 from WEEK02 material
-  They do not affect the output of WEEK01'S code*/
+  Instructor: Brother Ferguson
+ */
 
 
 namespace MyFirstConsoleApplication
