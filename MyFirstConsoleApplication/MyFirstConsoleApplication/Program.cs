@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
-/*First application for CIT 365 WEEK01
+/*First application for CIT365 WEEK01
   Author: Yllen Fernandez
   Instructor: Brother Ferguson
  */
@@ -59,45 +59,45 @@ namespace MyFirstConsoleApplication
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
 
+            
+
         }
 
 
         public static void RunExample()
         {
-            //Method prompts user to enter differnt values to be calculated and displayed as pieces of relevant info for a business
+            // Method prompts user to enter different values to be calculated and displayed as pieces of relevant info for a business
             double width;
             Console.Write("\nEnter a width: ");
             string widthString = Console.ReadLine();
-            width = double.Parse(widthString);
 
+            // Input validation for width
+            while (!double.TryParse(widthString, out width))
+            {
+                Console.Write("Enter a valid width: ");
+                widthString = Console.ReadLine();
+            }
 
             double height;
             Console.Write("Enter a height: ");
             string heightString = Console.ReadLine();
-            height = double.Parse(heightString);
 
+            // Input validation for height
+            while (!double.TryParse(heightString, out height))
+            {
+                Console.Write("Enter a valid height: ");
+                heightString = Console.ReadLine();
+            }
 
+            // Perform calculations and display results
             var woodLength = 2 * (width + height) * 3.25;
             Console.WriteLine($"The length of the wood is {woodLength} feet");
             var glassArea = 2 * (width * height);
             Console.WriteLine($"The area of the glass is {glassArea} square meters");
             Console.ReadLine();
-
-
-
-
-            while (!double.TryParse(widthString, out width) && (!double.TryParse(heightString, out height)))
-            {
-                Console.Write("Enter a valid width: ");
-                widthString = Console.ReadLine();
-                Console.WriteLine("Enter a valid height: ");
-                heightString = Console.ReadLine();
-            }
-
-
         }
 
 
 
-        }
+    }
 }
