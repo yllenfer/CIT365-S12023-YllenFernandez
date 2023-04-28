@@ -7,7 +7,7 @@ namespace MathQuiz
 
     {
         Random randomizer = new Random();
-        private System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
+        
 
         int addend1;
         int addend2;
@@ -26,44 +26,52 @@ namespace MathQuiz
         public Form1()
         {
             InitializeComponent();
-
-            timer1.Interval = 1000;
-            timer1.Tick += timer1_Tick;
-            StartTheQuiz();
+            //StartTheQuiz();
+            dateLabel.Text = DateTime.Now.ToString("dd MMMM yyyy");
         }
 
+       
         public void StartTheQuiz()
         {
-            
+           
             addend1 = randomizer.Next(51);
             addend2 = randomizer.Next(51);
 
+            
             plusLeftLabel.Text = addend1.ToString();
             plusRightLabel.Text = addend2.ToString();
+
+            
             sum.Value = 0;
 
+           
             minuend = randomizer.Next(1, 101);
             subtrahend = randomizer.Next(1, minuend);
             minusLeftLabel.Text = minuend.ToString();
             minusRightLabel.Text = subtrahend.ToString();
             difference.Value = 0;
 
+           
             multiplicand = randomizer.Next(2, 11);
             multiplier = randomizer.Next(2, 11);
             timesLeftLabel.Text = multiplicand.ToString();
             timesRightLabel.Text = multiplier.ToString();
             product.Value = 0;
 
+            
+            divisor = randomizer.Next(2, 11);
             int temporaryQuotient = randomizer.Next(2, 11);
-            divisor = randomizer.Next(1, 11);
             dividend = divisor * temporaryQuotient;
             dividedLeftLabel.Text = dividend.ToString();
             dividedRightLabel.Text = divisor.ToString();
             quotient.Value = 0;
 
+           
             timeLeft = 30;
             timeLabel.Text = "30 seconds";
             timer1.Start();
+
+            quizEnded = false;
         }
 
         private bool CheckTheAnswer()
@@ -83,11 +91,20 @@ namespace MathQuiz
             startButton.Enabled = false; 
         }
 
+        private bool quizEnded = false;
+
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (quizEnded)
+            {
+                return; 
+            }
+
+
             if (CheckTheAnswer())
             {
                 timer1.Stop();
+                quizEnded = true;
                 MessageBox.Show("You got all the answers right!", "Congratulations!");
                 startButton.Enabled = true; 
             }
@@ -99,6 +116,7 @@ namespace MathQuiz
             else
             {
                 timer1.Stop();
+                quizEnded |= true;
                 timeLabel.Text = "Time's up!";
                 MessageBox.Show("You didn't finish in time.", "Sorry!");
                 sum.Value = addend1 + addend2;
