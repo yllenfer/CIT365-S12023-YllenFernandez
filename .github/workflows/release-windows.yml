@@ -1,0 +1,28 @@
+name: Build Windows release
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: microsoft/setup-msbuild@v2
+      - uses: nuget/setup-nuget@v2
+      - name: Build
+        shell: pwsh
+        run: |
+          nuget restore "MathQuiz/MathQuiz.sln"
+          msbuild "MathQuiz/MathQuiz.sln" /p:Configuration=Release /m
+      - name: Zip and publish to the "latest" release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $dir = Get-ChildItem -Recurse -Directory -Filter Release | Where-Object { $_.FullName -match '\\bin\\Release$' -and $_.FullName -match 'MathQuiz' } | Select-Object -First 1
+          Compress-Archive -Path "$($dir.FullName)\*" -DestinationPath "MathQuiz-windows.zip"
+          gh release view latest 2>$null; if ($LASTEXITCODE -ne 0) { gh release create latest --title "Latest build" --notes "Windows build from the default branch. Unzip and run the .exe (requires .NET Framework 4.8, included in Windows 10/11)." }
+          gh release upload latest "MathQuiz-windows.zip" --clobber
